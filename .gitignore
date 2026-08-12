@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+pip-wheel-metadata/
+shared_env/
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# MLflow
+mlruns/
+.mlflow/
+
+# Models
+models/*.joblib
+models/*.pkl
+models/*.onnx
+
+# Data (large files, exclude from git)
+data/raw/
+data/processed/embeddings/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+!notebooks/*.ipynb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env vars
+.env
+.env.local
