@@ -27,6 +27,9 @@ data/Resume.zip
 data/raw/
 data/processed/embeddings/
 
+# Model artifacts (~117 MB, excluded from git; see README "Reproducibility strategy")
+experiments/
+
 # Jupyter
 .ipynb_checkpoints/
 *.ipynb
