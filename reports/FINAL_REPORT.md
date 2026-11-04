@@ -1,7 +1,7 @@
 # Resume Classification Project - Final Report
 
-**Date**: 2026-08-16
-**Status**: COMPLETE
+**Date**: 2026-11-04 (v1.0.0 release)
+**Status**: RELEASED v1.0.0
 
 ---
 
@@ -116,4 +116,5 @@ python predict.py --resume path/to/resume.txt --top_k 3
 ---
 
 *Project completed: 2026-08-16*
-*License: MIT (for portfolio use)*
+*Released: 2026-11-04 (v1.0.0)*
+*License: MIT — see LICENSE*
