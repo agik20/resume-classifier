@@ -97,9 +97,11 @@ README and `reports/FINAL_REPORT.md`.
 - **Branch**: `master`
 - **Prior history**: 7 commits (Phases 0–3). No force-push, reset, or
   rewrite performed.
-- **Release commit**: staged files reviewed via `git diff --cached`; commit
-  message `release: finalize resume classifier v1.0.0`.
-- **Tag**: `v1.0.0` (annotated, on the release commit; working tree clean at
+- **Release commit**: `1fef947` (`release: finalize resume classifier
+  v1.0.0`), followed by `27493e9` (`chore: ignore experiments/ model
+  artifacts` — adds the explicit `experiments/` ignore entry so a future
+  `git add -A` cannot commit ~100 MB by accident).
+- **Tag**: `v1.0.0` (annotated, points at `27493e9`; working tree clean at
   tag time).
 - **No remote configured** — nothing pushed; no remote push was requested.
 - **Excluded from the commit** (by `.gitignore` or absence):
