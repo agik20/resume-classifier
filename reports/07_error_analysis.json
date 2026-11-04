@@ -1,0 +1,158 @@
+{
+  "phase": 7,
+  "date": "2026-08-16",
+  "total_errors": 126,
+  "error_rate": 0.3378016085790885,
+  "confusion_matrix_top": [
+    [
+      "HEALTHCARE",
+      "ADVOCATE",
+      5
+    ],
+    [
+      "FINANCE",
+      "ACCOUNTANT",
+      5
+    ],
+    [
+      "ARTS",
+      "TEACHER",
+      5
+    ],
+    [
+      "ENGINEERING",
+      "AVIATION",
+      3
+    ],
+    [
+      "CONSTRUCTION",
+      "AVIATION",
+      3
+    ],
+    [
+      "SALES",
+      "BUSINESS-DEVELOPMENT",
+      2
+    ],
+    [
+      "SALES",
+      "APPAREL",
+      2
+    ],
+    [
+      "PUBLIC-RELATIONS",
+      "BUSINESS-DEVELOPMENT",
+      2
+    ],
+    [
+      "HEALTHCARE",
+      "HR",
+      2
+    ],
+    [
+      "ENGINEERING",
+      "CONSTRUCTION",
+      2
+    ],
+    [
+      "DIGITAL-MEDIA",
+      "PUBLIC-RELATIONS",
+      2
+    ],
+    [
+      "DESIGNER",
+      "ENGINEERING",
+      2
+    ],
+    [
+      "CONSULTANT",
+      "INFORMATION-TECHNOLOGY",
+      2
+    ],
+    [
+      "CONSTRUCTION",
+      "ACCOUNTANT",
+      2
+    ],
+    [
+      "BUSINESS-DEVELOPMENT",
+      "CHEF",
+      2
+    ],
+    [
+      "APPAREL",
+      "SALES",
+      2
+    ],
+    [
+      "AGRICULTURE",
+      "ADVOCATE",
+      2
+    ],
+    [
+      "TEACHER",
+      "ENGINEERING",
+      1
+    ],
+    [
+      "TEACHER",
+      "CONSULTANT",
+      1
+    ],
+    [
+      "TEACHER",
+      "ADVOCATE",
+      1
+    ]
+  ],
+  "errors_by_true": {
+    "ADVOCATE": 5,
+    "AGRICULTURE": 4,
+    "APPAREL": 7,
+    "ARTS": 12,
+    "AUTOMOBILE": 4,
+    "AVIATION": 2,
+    "BANKING": 3,
+    "BPO": 3,
+    "BUSINESS-DEVELOPMENT": 7,
+    "CHEF": 2,
+    "CONSTRUCTION": 6,
+    "CONSULTANT": 12,
+    "DESIGNER": 3,
+    "DIGITAL-MEDIA": 6,
+    "ENGINEERING": 6,
+    "FINANCE": 8,
+    "FITNESS": 6,
+    "HEALTHCARE": 9,
+    "HR": 1,
+    "INFORMATION-TECHNOLOGY": 3,
+    "PUBLIC-RELATIONS": 4,
+    "SALES": 10,
+    "TEACHER": 3
+  },
+  "errors_by_pred": {
+    "ACCOUNTANT": 7,
+    "ADVOCATE": 14,
+    "AGRICULTURE": 1,
+    "APPAREL": 8,
+    "ARTS": 2,
+    "AVIATION": 8,
+    "BANKING": 3,
+    "BPO": 1,
+    "BUSINESS-DEVELOPMENT": 7,
+    "CHEF": 4,
+    "CONSTRUCTION": 3,
+    "CONSULTANT": 6,
+    "DESIGNER": 2,
+    "DIGITAL-MEDIA": 2,
+    "ENGINEERING": 10,
+    "FINANCE": 2,
+    "FITNESS": 5,
+    "HEALTHCARE": 6,
+    "HR": 6,
+    "INFORMATION-TECHNOLOGY": 8,
+    "PUBLIC-RELATIONS": 5,
+    "SALES": 8,
+    "TEACHER": 8
+  }
+}

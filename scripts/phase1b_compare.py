@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -6,8 +7,10 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import f1_score
 import re
 
+RESUME_CSV = os.environ.get('RESUME_CSV', os.path.join(os.environ.get('RESUME_DATA_DIR', 'data'), 'Resume.csv'))
+
 print("Loading data...")
-df = pd.read_csv('C:/Users/ardut/projects/resume-dataset/dataset/Resume.csv')
+df = pd.read_csv(RESUME_CSV)
 
 def strip_header(text, chars=200):
     if pd.isna(text):

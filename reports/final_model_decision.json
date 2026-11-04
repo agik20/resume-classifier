@@ -1,0 +1,10 @@
+{
+  "phase": 9,
+  "date": "2026-08-16",
+  "final_model": "Phase 5 - Combined Word+Char TF-IDF + LinearSVC(C=10)",
+  "reason": "Embeddings (all-MiniLM-L6-v2) did not improve performance. Phase 5 model (CV=0.6137) remains best.",
+  "phase5_test_f1": 0.6137,
+  "phase8_best_test_f1": 0.5607,
+  "improvement": -0.053,
+  "decision": "USE_PHASE5_MODEL"
+}

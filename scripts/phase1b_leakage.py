@@ -1,7 +1,10 @@
+import os
 import pandas as pd
 
+RESUME_CSV = os.environ.get('RESUME_CSV', os.path.join(os.environ.get('RESUME_DATA_DIR', 'data'), 'Resume.csv'))
+
 print("Loading data...")
-df = pd.read_csv('C:/Users/ardut/projects/resume-dataset/dataset/Resume.csv')
+df = pd.read_csv(RESUME_CSV)
 
 print("\n=== Category Leakage Analysis ===")
 cats = sorted(df['Category'].unique())

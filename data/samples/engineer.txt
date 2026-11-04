@@ -1,0 +1,21 @@
+Jane Doe
+Senior Software Engineer | 5 years experience
+
+Profile
+Backend engineer specializing in Python, distributed systems, and cloud infrastructure.
+
+Experience
+Senior Software Engineer, TechCorp (2021-2026)
+- Designed and built microservices with Python, FastAPI, PostgreSQL, and Docker
+- Led migration to Kubernetes; reduced infrastructure cost by 30%
+- Built ETL pipelines with Airflow and Apache Spark
+
+Software Engineer, StartCo (2019-2021)
+- Developed REST APIs in Python and Go; wrote unit and integration tests
+- Optimized database queries, improving p95 latency by 45%
+
+Education
+B.S. Computer Science, Example University, 2019
+
+Skills
+Python, Go, SQL, PostgreSQL, Docker, Kubernetes, AWS, CI/CD, FastAPI, Git

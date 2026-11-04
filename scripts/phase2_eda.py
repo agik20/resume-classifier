@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import re
@@ -6,12 +7,14 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 
+RESUME_CSV = os.environ.get('RESUME_CSV', os.path.join(os.environ.get('RESUME_DATA_DIR', 'data'), 'Resume.csv'))
+
 print("=" * 60)
 print("PHASE 2: EXPLORATORY DATA ANALYSIS (EDA)")
 print("=" * 60)
 
 print("\n[1] Loading data...")
-df = pd.read_csv('C:/Users/ardut/projects/resume-dataset/dataset/Resume.csv')
+df = pd.read_csv(RESUME_CSV)
 print(f"    Loaded: {len(df)} rows, {len(df.columns)} columns")
 
 def clean_text(text):

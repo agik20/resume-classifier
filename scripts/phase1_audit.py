@@ -1,8 +1,11 @@
+import os
 import pandas as pd
 import re
 
+RESUME_CSV = os.environ.get('RESUME_CSV', os.path.join(os.environ.get('RESUME_DATA_DIR', 'data'), 'Resume.csv'))
+
 print("Loading data...")
-df = pd.read_csv('C:/Users/ardut/projects/resume-dataset/dataset/Resume.csv')
+df = pd.read_csv(RESUME_CSV)
 
 print("\n=== 1.1 Structure Validation ===")
 print(f"Total rows: {len(df)}")
