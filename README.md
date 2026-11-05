@@ -2,137 +2,101 @@
 
 **Version 1.0.0** — stable release (2026-11-04)
 
-Multi-class classifier for resume domain prediction across 24 categories.
-Built as a portfolio-grade ML engineering demonstration with rigorous
-leakage mitigation, documented experimentation, and honest performance
-analysis.
+24-way classifier for resume domain prediction. Built with rigorous leakage
+mitigation, a phase-gated experiment pipeline, and honest reporting — the
+0.65 F1 target was not met and is documented as a dataset-inherent ceiling.
 
-## Results
+## Dataset
+
+| | |
+|---|---|
+| Total resumes | 2,484 |
+| Classes | 24 (5.45× imbalance) |
+| Multi-domain rate | 98.8% contain keywords from ≥2 categories |
+| Split | 55/15/30 · train 1,365 · val 373 · test 746 |
+
+## Final Model
+
+```
+resume text → clean + strip first 200 chars (leakage mitigation)
+           → word TF-IDF (1–2 grams, 433,832 feats)
+           + char_wb TF-IDF (3–5 grams, 101,860 feats)
+           → LinearSVC(C=10, max_iter=10000, 24 classes)
+```
 
 | Metric | Value |
 |--------|-------|
-| Test Macro F1 | 0.5762 |
-| Validation Macro F1 | 0.6137 |
-| Baseline (unmitigated) | 0.5329 |
-| Improvement | +15.1% |
-| Inference latency (p50) | 0.33 ms |
-| Model size (active artifacts) | ~117 MB (word vec 12.9 MB + char vec 1.9 MB + classifier 102.9 MB) |
+| Test Macro F1 | **0.5762** |
+| Val Macro F1 | 0.6137 |
+| Improvement over mitigated baseline | +0.0808 CV (+15.1%) |
+| Inference p50 / p95 | 0.33 ms / 0.44 ms |
+| Model artifact total | ~117 MB |
 
-The 0.65 target was not met. This is attributed to inherent dataset
-ambiguity (98.8% of resumes contain keywords from 2+ domains), not model
-failure. See `reports/final_model_decision.md` for the full analysis.
+The 0.65 target was **not** achieved. The gap is attributed to dataset
+inherent ambiguity (~60% of errors are cross-domain keyword overlaps),
+not model weakness.
 
-## Quick Start
+## Key Limitations
 
-For inference only:
-
-```bash
-pip install -r requirements.txt
-```
-
-For the full validated environment (all 136 packages, including Phase 8
-embedding dependencies):
-
-```bash
-pip install -r requirements.lock
-```
-
-Run inference:
-
-```bash
-python predict.py --resume path/to/resume.txt --top_k 3
-```
-
-Or import in Python:
-
-```python
-from predict import predict_resume
-
-result = predict_resume("John Smith, Software Engineer ...")
-print(result["predicted_category"])   # "ENGINEERING"
-print(result["confidence_score"])     # raw decision value (not a probability)
-print(result["top_k_predictions"])    # top 3 with scores
-```
+- BPO test recall 0.143 (only 7 test samples); small classes are high-variance
+- `confidence_score` is a raw LinearSVC decision value, **not** a probability
+- Model artifacts (~117 MB) are excluded from git — obtain or reproduce (below)
+- Results transfer only within this dataset's 24-class taxonomy
 
 ## Repository Layout
 
 ```
-predict.py              Inference entry point (module + CLI)
-experiments/            Trained model artifacts (.joblib)
-scripts/                Phase-by-phase training and analysis scripts
-reports/                Generated reports (EDA, tuning, error analysis, final)
-data/                   Dataset + split files
-tests/                  pytest test suite
+predict.py          Inference module + CLI
+experiments/        Trained artifacts (.joblib) + experiment JSONs
+scripts/           Phase-by-phase pipeline scripts
+reports/PROJECT_REPORT.md   Full technical project report (20 sections)
+reports/artifacts/ Raw evidence JSONs (baseline, robustness, errors, tests, decision)
+data/               Dataset + split files
+tests/              17 pytest tests
 ```
 
-## Model Artifacts
+## Installation
 
-The three active artifacts in `experiments/` are the frozen final model:
+Inference only (11 pinned packages):
+```bash
+pip install -r requirements.txt
+```
 
-| Artifact | Size | Role |
-|----------|------|------|
-| `best_phase5_word_vec.joblib` | 12.9 MB | Word TF-IDF vectorizer (433,832 features) |
-| `best_phase5_char_vec.joblib` | 1.9 MB | Char TF-IDF vectorizer (101,860 features) |
-| `best_phase5_clf.joblib` | 102.9 MB | LinearSVC classifier (535,692 input features, 24 classes) |
+Full validated environment (136 packages, includes sentence-transformers stack):
+```bash
+pip install -r requirements.lock
+```
 
-**Reproducibility strategy**: The artifacts are **not** committed to git (total ~117 MB).
-Instead, they can be deterministically reproduced from `scripts/phase5_tuning.py`
-using `data/Resume.csv` + `data/splits/splits.json` + `requirements.lock`.
-The dataset file is large (~56 MB unzipped) and is excluded from git via `.gitignore`.
-To reproduce: run `pip install -r requirements.lock` then
-`python scripts/phase5_tuning.py` with `RESUME_DATA_DIR` pointing to the data root.
+## Quick Start
 
-For deployment, distribute the three `.joblib` files alongside `predict.py`
-(e.g., via a release tarball or a private artifact registry).
-Git LFS is recommended if the artifacts need to live in this repository.
+```bash
+# CLI
+python predict.py --resume data/samples/engineer.txt --top_k 3
 
-> **Important: cloning the repository is not sufficient to run inference.**
-> The model artifacts (`experiments/*.joblib`) and the dataset
-> (`data/Resume.csv`) are excluded from git. You must either obtain the
-> three `.joblib` files separately, or reproduce them via the
-> `scripts/phase5_tuning.py` pipeline as described above.
+# Python
+from predict import predict_resume
+r = predict_resume("John Smith, Software Engineer ...")
+print(r["predicted_category"])   # e.g. "ENGINEERING"
+print(r["confidence_score"])     # raw decision value (not a probability)
+```
 
-## Key Reports
+> **Cloning is not sufficient to run inference.** The three `.joblib` files in
+> `experiments/` are excluded from git. Obtain them as release assets or
+> reproduce with `python scripts/phase5_tuning.py` (after installing
+> `requirements.lock` and providing `data/Resume.csv`).
 
-| File | Contents |
-|------|----------|
-| `reports/02_eda_findings.md` | Label distribution, multi-domain rate, separability |
-| `reports/05_tuning_report.md` | 20-experiment grid search results |
-| `reports/07_error_analysis.md` | Confusion pairs, worst classes |
-| `reports/final_model_decision.md` | Multi-criteria model selection |
-| `reports/FINAL_REPORT.md` | Executive summary |
+## Tests
 
-## Model
+```bash
+python -m pytest tests/ -v   # 17 tests
+```
 
-**LinearSVC(C=10)** on combined word+char TF-IDF features:
-- Word n-grams (1,2), `sublinear_tf=True`
-- Char n-grams (3,5), `min_df=2`, `sublinear_tf=True`
-- ~535K total feature dimensions
-- Training time: ~7 seconds (CPU only)
+## Full Technical Report
 
-## Limitations
-
-- **BPO**: 0.14 recall (only 3 test samples)
-- Small classes (ARTS, AUTOMOBILE, CONSULTANT) are unstable
-- `confidence_score` is a raw decision value, not a calibrated probability
-- ~60% of errors are dataset-inherent ambiguity
-
-## Future Work
-
-- **Synthetic data / manual relabeling**: The 0.65-0.67 F1 ceiling is dataset-inherent.
-  Synthetic oversampling or manual relabeling of ambiguous multi-domain resumes could close the gap.
-- **Probability calibration**: `confidence_score` is a raw LinearSVC decision value.
-  Applying Platt scaling or isotonic regression would produce calibrated probabilities.
-- **Feature engineering**: Semantic embeddings (e.g., sentence-transformers) were tested
-  and rejected in Phase 8. A hybrid TF-IDF + embedding pipeline is unexplored.
-- **Deployment**: A lightweight API wrapper (e.g., FastAPI) around `predict_resume()`
-  is a natural next step.
+See [`reports/PROJECT_REPORT.md`](reports/PROJECT_REPORT.md) — 20 sections
+covering data audit, leakage mitigation, all experimental phases, error
+analysis, model architecture, reproducibility, and known limitations.
 
 ## License
 
 MIT — see [`LICENSE`](LICENSE).
-
-## Release Notes
-
-See [`CHANGELOG.md`](CHANGELOG.md) for the full v1.0.0 change history,
-artifact distribution policy, and known limitations.

@@ -21,6 +21,12 @@ File ini mendokumentasikan setiap bug, temuan data quality, dan perbaikan selama
 
 ## Log
 
+### Fix #2 — BPO test sample count corrected from 3 to 7 in CHANGELOG.md
+
+| Tanggal | File | Masalah | Akar | Fix | Verifikasi | Pelajaran | Deploy |
+|---------|------|---------|------|-----|------------|-----------|--------|
+| 2026-11-04 | CHANGELOG.md (line 61), CHANGELOG_FIXES.md (ini) | BPO test sample count "3" is wrong; correct value is 7 | Likely confusion with the 3 BPO val samples; propagated into FINAL_REPORT.md and FINAL_ACCEPTANCE_REPORT.md (archived, not corrected) | Changed "BPO: 3 test samples, 0.14 recall" → "BPO: 7 test samples, 0.143 recall" in CHANGELOG.md known-limitations bullet | `data/splits/test.csv` BPO row count = 7; `10_test_results.json` BPO recall = 0.142857 (= 1/7); 0.143 is correct rounding | Verify metric claims against primary JSON evidence before writing into changelog documents; the "3" error was in documents, not in the actual results | Post-audit documentation fix |
+
 ### Fix #1 — Finalisasi v1.0.0: paths hard-coded + exec() + artifacts orphan + confidence belum terdokumentasi
 
 | Tanggal | File | Masalah | Akar | Fix | Verifikasi | Pelajaran | Deploy |

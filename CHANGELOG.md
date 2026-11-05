@@ -58,7 +58,7 @@ Git LFS (Option A) was not adopted.
 ### Known limitations (not a defect — documented results)
 - Test Macro F1 = 0.5762; the 0.65 target was not met. The gap is attributed
   to inherent dataset ambiguity (98.8% of resumes contain keywords from
-  2+ domains) and small-class scarcity (BPO: 3 test samples, 0.14 recall).
+  2+ domains) and small-class scarcity (BPO: 7 test samples, 0.143 recall).
 - `confidence_score` is a raw LinearSVC decision value, not a calibrated
   probability.
 - The model artifacts themselves are not tracked in git; a fresh clone
